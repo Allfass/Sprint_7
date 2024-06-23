@@ -29,7 +29,7 @@ class Order:
         metro_station =  random.randint(1, 10)
         phone = fake.phone_number()
         rent_time = random.randint(1, 10)
-        delivery_date = datetime.date.today()+datetime.timedelta(3).strftime('%Y-%m-%d')
+        delivery_date = (datetime.date.today()+datetime.timedelta(3)).strftime('%Y-%m-%d')
         comment = fake.first_name()
         payload = {
             "firstName": first_name,

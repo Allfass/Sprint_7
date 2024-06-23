@@ -2,6 +2,7 @@ import allure
 import pytest
 import requests
 from data import TestData
+from test_requests.order import Order
 
 
 class TestCreateOrder:
@@ -76,10 +77,12 @@ class TestCreateOrder:
             "deliveryDate": testing_dict["deliveryDate"],
             "comment": testing_dict["comment"]
             }
-
         response = requests.post(
             TestData.ORDER_URL, data=payload, timeout=10
         )
-
         assert response.status_code == 201
-        
+
+    def test_creating_order_return_track(self):
+        order = Order()
+        order.create_order()
+        assert order.track != 0
