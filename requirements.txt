@@ -2,3 +2,4 @@ allure-pytest
 pytest
 pytest-xdist
 requests
+faker

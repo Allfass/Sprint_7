@@ -15,7 +15,7 @@ class TestCourier():
             "password": password,
             "firstName": first_name
         }
-        response = requests.post(TestData.courier_create_url, data=payload)
+        response = requests.post(TestData.COURIER_CREATE_URL, data=payload, timeout=10)
         assert response.status_code == 201
 
     @allure.title('Проверка возвращаемого значения при корректном создании курьера')
@@ -29,7 +29,7 @@ class TestCourier():
             "password": password,
             "firstName": first_name
         }
-        response = requests.post(TestData.courier_create_url, data=payload)
+        response = requests.post(TestData.COURIER_CREATE_URL, data=payload, timeout=10)
         assert response.json()["ok"]
 
     @allure.title('Проверка невозможности создания одинаковых курьеров')
@@ -43,8 +43,8 @@ class TestCourier():
             "password": password,
             "firstName": first_name
         }
-        requests.post(TestData.courier_create_url, data=payload)
-        final_response = requests.post(TestData.courier_create_url, data=payload)
+        requests.post(TestData.COURIER_CREATE_URL, data=payload, timeout=10)
+        final_response = requests.post(TestData.COURIER_CREATE_URL, data=payload, timeout=10)
         assert final_response.status_code == 409
 
     @allure.title('Проверка отсутствия обязательного поля login при создании курьера')
@@ -56,7 +56,7 @@ class TestCourier():
             "password": password,
             "firstName": first_name
         }
-        response = requests.post(TestData.courier_create_url, data=payload)
+        response = requests.post(TestData.COURIER_CREATE_URL, data=payload, timeout=10)
         assert response.status_code == 400
 
     @allure.title('Проверка отсутствия обязательного поля password при создании курьера')
@@ -68,5 +68,5 @@ class TestCourier():
             "login": login,
             "firstName": first_name
         }
-        response = requests.post(TestData.courier_create_url, data=payload)
+        response = requests.post(TestData.COURIER_CREATE_URL, data=payload, timeout=10)
         assert response.status_code == 400
