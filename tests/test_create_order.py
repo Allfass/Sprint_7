@@ -3,6 +3,7 @@ import pytest
 import requests
 from data import TestData
 from test_requests.order import Order
+from test_requests.courier import Courier
 
 
 class TestCreateOrder:
@@ -86,3 +87,11 @@ class TestCreateOrder:
         order = Order()
         order.create_order()
         assert order.track != 0
+
+    def test_get_order_after_making_order_return_order_list(self):
+        test_courier = Courier()
+        test_courier.register_new_courier()
+        test_courier.login_courier()
+        order = Order()
+        order.create_order()
+        assert order.get_order_list(test_courier.id) == 200

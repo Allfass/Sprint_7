@@ -14,6 +14,7 @@ class Order:
     def __init__(self) -> None:
         self.test_data = TestData()
         self.track = 0
+        self.order_list = {}
 
     @allure.step("Создаём заказ")
     def create_order(self):
@@ -41,10 +42,14 @@ class Order:
             "deliveryDate": delivery_date,
             "comment": comment
             }
-
         response = requests.post(
             self.test_data.ORDER_URL, data=payload, timeout=10
         )
-
         if response.status_code == 201:
             self.track = response.json()["track"]
+
+    def get_order_list(self, courier_id):
+        url = f'{self.test_data.ORDER_URL}?courierId={courier_id}'
+        response = requests.get(url, timeout=60)
+        self.order_list = response.json()
+        return response.status_code
