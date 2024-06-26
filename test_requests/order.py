@@ -48,8 +48,8 @@ class Order:
         if response.status_code == 201:
             self.track = response.json()["track"]
 
+    @allure.step("Получаем список заказов курьера")
     def get_order_list(self, courier_id):
         url = f'{self.test_data.ORDER_URL}?courierId={courier_id}'
         response = requests.get(url, timeout=60)
-        self.order_list = response.json()
-        return response.status_code
+        self.order_list = response
